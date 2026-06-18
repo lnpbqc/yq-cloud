@@ -25,6 +25,10 @@ spring:
         dashboard: localhost:8858
       web-context-unify: false
 
+
 product-service:
   ribbon:
     NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule
+logging:
+  level:
+    com.gec.shoporderserver.api: DEBUG  # 前面是包名 : 输出级别
