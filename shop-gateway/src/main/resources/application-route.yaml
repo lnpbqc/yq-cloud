@@ -1,0 +1,49 @@
+spring:
+  cloud:
+    gateway:
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowed-origins: '*' # http://localhost:5173
+            allowed-methods: '*'
+            allowed-headers: '*' # request header id
+      routes:
+        - id: product-service
+          uri: lb://shop-product-server # lb loadbalance application-dev.yaml
+          predicates: # 需要符合一个什么样的条件才进行转发
+            - Path=/api/product/** # http://localhost:80/api/product/**
+          order: 0 # 优先顺序
+          filters:
+            # /api/product/products/1 -> /products/1 -> 微服务/products/1
+            - RewritePath=/api/product/?(?<segment>.*),/$\{segment}
+            - AddResponseHeader=weather,sunny
+          metadata:
+            cors:
+              allowed-origins: '*' # http://localhost:5173
+              allowed-methods: '*'
+              allowed-headers: '*' # request header id
+        - id: baidu-search
+          uri: https://www.baidu.com/
+          predicates: # Path => PathRoutePredicateFactory = Path + RoutePredicateFactory
+            - Path=/s
+            - Query=wd,.*
+            - VIP=user,gec #短写
+            - School=name,yueqian
+            - name: VIP #长写
+              args:
+                param: user
+                value: gec
+#            - name: Query
+#              args:
+#                param: wd
+#                regexp: haha
+
+# 同源策略限制问题
+# http://localhost:80
+# https://localhost:80
+
+# https://localhost:80
+# https://localhost:81
+
+# https://a.baidu.com:80
+# https://b.baidu.com:80

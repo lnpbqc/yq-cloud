@@ -16,12 +16,11 @@ public class ProductController {
     @Autowired
     private ProductService productService;
 
-
     @Value("${server.port}")
     private String port;
 
-    //商品信息查询
-    @RequestMapping("/products/{pid}")
+    //商品信息查询 v1/  v2
+    @RequestMapping("products/{pid}")
     public Product findByPid(@PathVariable("pid") Long pid) {
         log.info("接下来要进行{}号商品信息的查询", pid);
         Product product = productService.getById(pid);
