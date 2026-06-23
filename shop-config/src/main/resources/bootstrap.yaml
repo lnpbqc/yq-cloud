@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: shop-config
+  cloud:
+    nacos:
+      config: # 配置中心
+        server-addr: localhost:8848
+        file-extension: yaml # properties
+        shared-configs:
+          - data-id: global-config.yaml # 配置要引入的配置
+            refresh: true
+  profiles:
+    active: dev # shop-config-teach.yaml # shop-config 我们的服务名 加上 teach 加上文件扩展名 .yaml
+    # shop-config.yaml
+server:
+  port: 8071

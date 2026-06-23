@@ -6,6 +6,8 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="shop-gateway" />
+        <module name="shop-config" />
         <module name="shop-order-server" />
         <module name="shop-product-api" />
         <module name="shop-order-api" />
@@ -16,6 +18,8 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="shop" options="" />
+      <module name="shop-config" options="-parameters" />
+      <module name="shop-gateway" options="-parameters" />
       <module name="shop-order-api" options="-parameters" />
       <module name="shop-order-server" options="-parameters" />
       <module name="shop-product-api" options="-parameters" />

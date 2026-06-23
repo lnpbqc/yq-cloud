@@ -17,6 +17,7 @@ spring:
             # /api/product/products/1 -> /products/1 -> 微服务/products/1
             - RewritePath=/api/product/?(?<segment>.*),/$\{segment}
             - AddResponseHeader=weather,sunny
+            - ShowTime=true
           metadata:
             cors:
               allowed-origins: '*' # http://localhost:5173

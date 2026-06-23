@@ -2,7 +2,6 @@ package com.gec.config.controller;
 
 
 import com.gec.config.config.ConfigConfiguration;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
@@ -11,22 +10,32 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@Slf4j
-@RequestMapping("/config")
+@RequestMapping
 @RefreshScope
-public class ConfigController {
-    @Value("${custom.msg}")
-    private String msg;
-    @GetMapping
-    public String config(){
-        return msg;
-    }
+public class TeachController {
 
     @Autowired
     private ConfigConfiguration configConfiguration;
 
-    @GetMapping("/configurations")
-    public String configurations(){
-        return configConfiguration.getTest();
+    @Value("${custom.msg}")
+    private String msg;
+
+    @GetMapping("/shared")
+    public String shared(){
+        return msg;
+    }
+
+
+    @GetMapping("/teach")
+    public String msg(){
+        return configConfiguration.getMsg();
+    }
+
+    @Value("${globalConfig}")
+    private String globalMsg;
+
+    @GetMapping("/global")
+    public String global(){
+        return globalMsg;
     }
 }

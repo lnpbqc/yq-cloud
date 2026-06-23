@@ -17,6 +17,9 @@
         <module>shop-product-api</module>
         <module>shop-product-server</module>
         <module>shop-order-api</module>
+        <module>shop-order-server</module>
+        <module>shop-gateway</module>
+        <module>shop-config</module>
     </modules>
     <!--依赖版本的锁定-->
     <properties>
