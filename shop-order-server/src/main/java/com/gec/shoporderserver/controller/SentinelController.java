@@ -1,6 +1,5 @@
 package com.gec.shoporderserver.controller;
 
-import com.gec.shoporderserver.api.ProductApi;
 import com.gec.shoporderserver.service.ProductService;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

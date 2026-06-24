@@ -1,6 +1,5 @@
 package com.gec.shoporderserver.service.impl;
 
-import com.alibaba.cloud.nacos.discovery.NacosDiscoveryClient;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.gec.shoporderapi.entity.Order;
 import com.gec.shoporderserver.api.ProductApi;
@@ -9,12 +8,9 @@ import com.gec.shoporderserver.service.OrderService;
 import com.gec.shopproductapi.entity.Product;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cloud.client.ServiceInstance;
-import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
-
-import java.util.List;
 
 @Service
 @Slf4j
@@ -43,6 +39,23 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         // 保存订单
         super.save(order);
 
+        return order;
+    }
+
+    @Transactional
+//    @GlobalTransactional
+    @Override
+    public Order buyProduct(Long pid, Integer counts, Long uid) {
+        Product buy = productApi.buy(pid, counts);
+        Order order = new Order();
+        order.setPid(pid);
+        order.setProductName(buy.getName());
+        order.setProductPrice(buy.getPrice()*counts); // 假如这里还有去给用户余额进行扣减的api
+        order.setUid(uid);
+        order.setNumber(counts);
+        order.setUsername("zbc");
+        save(order);
+        if(uid==123)throw new RuntimeException();
         return order;
     }
 }
